@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: huonglien
+  api_key: '946197629669555'
+  api_secret: aiLZAoEMUYrnkDYGnRShsahAst0
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: huonglien
+  api_key: '946197629669555'
+  api_secret: aiLZAoEMUYrnkDYGnRShsahAst0
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: huonglien
+  api_key: '946197629669555'
+  api_secret: aiLZAoEMUYrnkDYGnRShsahAst0
+  enhance_image_tag: true
+  static_image_support: false

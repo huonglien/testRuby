@@ -25,16 +25,17 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @comment = Comment.new(comment_params)
-
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to idea_path(@comment.idea_id), notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @comment }
-      else
-        format.html { render :new }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
-    end
+@idea = Idea.find_by_id @comment.idea_id
+@comments = @idea.comments.all
+   respond_to do |format|
+  if @comment.save
+    format.html { redirect_to idea_path(@comment.idea_id), notice: 'Comment was successfully created.' }
+    format.json { render :show, status: :created, location: @comment }
+  else
+    format.html { render :template => "ideas/show" }
+    format.json { render json: @comment.errors, status: :unprocessable_entity }
+  end
+end
   end
 
   # PATCH/PUT /comments/1
@@ -54,9 +55,10 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
+    idea_id = @comment.idea_id
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
+      format.html { redirect_to idea_path(idea_id), notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +71,6 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-   params.require(:comment).permit(:user_name, :body, :idea_id, :picture)
+ params.require(:comment).permit(:user_name, :body, :idea_id, :picture, :reply_id, :user_id)
     end
 end
